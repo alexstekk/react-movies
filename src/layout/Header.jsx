@@ -9,7 +9,7 @@ function Header() {
 						href='#!'
 						className='brand-logo'
 					>
-						React Movies
+						React Movies Catalog
 					</a>
 					<ul
 						id='nav-mobile'
