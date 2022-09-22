@@ -44,3 +44,13 @@ body {
 	align-items: center;
 	flex: 1 1 auto;
 }
+
+.search-btn {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.filter:not(:last-child) {
+	margin-right: 2rem;
+}
