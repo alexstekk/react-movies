@@ -1,80 +1,76 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 
-class Search extends Component {
-	state = {
-		search: '',
-		type: 'all',
-	};
+const Search = (props) => {
+	const { searchMovies = Function.prototype } = props;
 
-	handleKey = (e) => {
+	const [search, setSearch] = useState('');
+	const [type, setType] = useState('all');
+
+	const handleKey = (e) => {
 		if (e.key === 'Enter') {
-			this.props.searchMovies(this.state.search, this.state.type);
+			searchMovies(search, type);
 		}
 	};
 
-	handleFilter = (e) => {
-		this.setState(
-			() => ({ type: e.target.value }),
-			() => this.props.searchMovies(this.state.search, this.state.type)
-		);
+	const handleFilter = (e) => {
+		setType(e.target.value);
+		searchMovies(search, e.target.value);
 	};
 
-	render() {
-		return (
-			<div className='input-field'>
-				<input
-					id='search'
-					type='search'
-					className='validate'
-					placeholder='Search...'
-					value={this.state.search}
-					onKeyDown={this.handleKey}
-					onChange={(e) => this.setState({ search: e.target.value })}
-				/>
-				<button
-					className='btn search-btn'
-					onClick={() => this.props.searchMovies(this.state.search, this.state.type)}
-				>
-					Search
-				</button>
-				<div>
-					<label className='filter'>
-						<input
-							className='with-gap'
-							name='type'
-							type='radio'
-							value='all'
-							onChange={this.handleFilter}
-							checked={this.state.type === 'all'}
-						/>
-						<span>All</span>
-					</label>
-					<label className='filter'>
-						<input
-							className='with-gap'
-							name='type'
-							type='radio'
-							value='movie'
-							onChange={this.handleFilter}
-							checked={this.state.type === 'movie'}
-						/>
-						<span>movies only</span>
-					</label>
-					<label className='filter'>
-						<input
-							className='with-gap'
-							name='type'
-							type='radio'
-							value='series'
-							onChange={this.handleFilter}
-							checked={this.state.type === 'series'}
-						/>
-						<span>series only</span>
-					</label>
-				</div>
+	return (
+		<div className='input-field'>
+			<input
+				id='search'
+				type='search'
+				className='validate'
+				placeholder='Search...'
+				value={search}
+				onKeyDown={handleKey}
+				onChange={(e) => setSearch(e.target.value)}
+			/>
+			<button
+				className='btn search-btn'
+				onClick={() => searchMovies(search, type)}
+			>
+				Search
+			</button>
+			<div>
+				<label className='filter'>
+					<input
+						className='with-gap'
+						name='type'
+						type='radio'
+						value='all'
+						onChange={handleFilter}
+						checked={type === 'all'}
+					/>
+					<span>All</span>
+				</label>
+				<label className='filter'>
+					<input
+						className='with-gap'
+						name='type'
+						type='radio'
+						value='movie'
+						onChange={handleFilter}
+						checked={type === 'movie'}
+					/>
+					<span>movies only</span>
+				</label>
+				<label className='filter'>
+					<input
+						className='with-gap'
+						name='type'
+						type='radio'
+						value='series'
+						onChange={handleFilter}
+						checked={type === 'series'}
+					/>
+					<span>series only</span>
+				</label>
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
 
 export { Search };
